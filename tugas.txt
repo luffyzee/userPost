@@ -1,0 +1,18 @@
+Bikin tabel user dimana user punya email sama password, 
+User harus bisa punya banyak post
+Post isinya title sama body, 
+
+yg bisa ngedit atau delete post cuma user yang punya post.
+
+userSchema {
+    name:,
+    email:,
+    post:    
+}
+
+postSchema {
+    title:,
+    body:,
+    user:
+}
+
