@@ -1,4 +1,3 @@
-const config = require("config");
 const post = require("./routes/posts");
 const user = require("./routes/users");
 const Joi = require("@hapi/joi");
@@ -25,12 +24,12 @@ mongoose
   })
   .then(() => console.log(`Connected to ${dbConnection}`));
 
-app.use(express.json());
-app.use("/api/users", user);
-app.use("/api/posts", post);
-
 app.listen(port, () => {
   console.log(`listening on port ${port}...`);
 });
+
+app.use(express.json());
+app.use("/api/users", user);
+app.use("/api/posts", post);
 
 module.exports = app;

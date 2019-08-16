@@ -31,7 +31,7 @@ router.post("/", async (req, res) => {
   await post.save();
   user.post.push(post);
   await user.save();
-  res.send(post);
+  res.status(201).send(post);
 });
 
 router.delete("/", async (req, res) => {

@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
     email: req.body.email
   });
   await user.save();
-  res.send(user);
+  res.status(201).send(user);
 });
 
 router.put("/:id", async (req, res) => {
@@ -38,9 +38,9 @@ router.put("/:id", async (req, res) => {
     },
     { new: true }
   );
-  if (!post) return res.status(404).send("Post not found");
+  if (!user) return res.status(404).send("User not found");
 
-  res.send(user);
+  res.status(200).send(user);
 });
 
 router.delete("/:id", async (req, res) => {
