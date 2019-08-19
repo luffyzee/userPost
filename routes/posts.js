@@ -1,3 +1,4 @@
+const auth = require("../middleware/auth");
 const Joi = require("@hapi/joi");
 const fawn = require("fawn");
 const { Post, validate } = require("../models/post");
@@ -15,7 +16,7 @@ router.get("/", async (req, res) => {
   res.send(post);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -34,7 +35,7 @@ router.post("/", async (req, res) => {
   res.status(201).send(post);
 });
 
-router.delete("/", async (req, res) => {
+router.delete("/", auth, async (req, res) => {
   const { error } = validateDelete(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -51,7 +52,7 @@ router.delete("/", async (req, res) => {
   res.send(user);
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
