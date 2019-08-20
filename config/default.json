@@ -1,3 +1,4 @@
 {
-  "jwtPrivateKey": "secretkey"
+  "jwtPrivateKey": "secretkey",
+  "db": "mongodb+srv://sunarya:<password>@cluster0-ahnue.mongodb.net/test?retryWrites=true&w=majority"
 }

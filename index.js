@@ -10,7 +10,8 @@ const port = process.env.PORT || 3000;
 
 const configDB = {
   development: "mongodb://localhost/userPost",
-  test: "mongodb://localhost/userPost_test"
+  test: "mongodb://localhost/userPost_test",
+  production: process.env.DBCONNECTION
 };
 
 const env = process.env.NODE_ENV || "development";
