@@ -1,11 +1,11 @@
-const login = require("./routes/login");
-const post = require("./routes/posts");
-const user = require("./routes/users");
 const Joi = require("@hapi/joi");
 Joi.objectId = require("joi-objectid")(Joi);
 const express = require("express");
-const mongoose = require("mongoose");
 const app = express();
+const mongoose = require("mongoose");
+
+require("./startup/routes")(app);
+
 const port = process.env.PORT || 3000;
 
 const configDB = {
@@ -24,11 +24,6 @@ mongoose
     useFindAndModify: false
   })
   .then(() => console.log(`Connected to ${dbConnection}`));
-
-app.use(express.json());
-app.use("/api/login", login);
-app.use("/api/users", user);
-app.use("/api/posts", post);
 
 app.listen(port, () => {
   console.log(`listening on port ${port}...`);
