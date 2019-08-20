@@ -1,3 +1,5 @@
+// process.env.NODE_ENV = "production";
+
 const Joi = require("@hapi/joi");
 Joi.objectId = require("joi-objectid")(Joi);
 const express = require("express");
@@ -11,7 +13,8 @@ const port = process.env.PORT || 3000;
 const configDB = {
   development: "mongodb://localhost/userPost",
   test: "mongodb://localhost/userPost_test",
-  production: process.env.DBCONNECTION
+  production:
+    "mongodb+srv://sunarya:sunarya@cluster0-ahnue.mongodb.net/test?retryWrites=true&w=majority"
 };
 
 const env = process.env.NODE_ENV || "development";
