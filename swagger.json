@@ -1,0 +1,305 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is API Documentation.",
+    "version": "1.0.0",
+    "title": "usertpost API using express",
+    "contact": {
+      "email": "sunaryaagung95@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "User Operation",
+      "description": "Operations about user",
+      "externalDocs": {
+        "description": "Find out more about my store",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "Login Operation",
+      "description": "How to login",
+      "externalDocs": {
+        "description": "Find out more about my store",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "Post Operation",
+      "description": "Operation about post",
+      "externalDocs": {
+        "description": "Find out more about my store",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "schemes": ["https", "http"],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["User Operation"],
+        "summary": "Register User",
+        "description": "",
+        "operationId": "addUser",
+        "consumes": ["application/json", "application/xml"],
+        "produces": ["application/xml", "application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Users that will be registered on database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserRegister"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/users/me": {
+      "get": {
+        "tags": ["User Operation"],
+        "summary": "Get Current User",
+        "description": "",
+        "operationId": "GetCurrentUser",
+        "consumes": ["application/json", "application/xml"],
+        "produces": ["application/xml", "application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "me",
+            "type": "integer",
+            "required": true,
+            "description": "Will get user base on jswonwebtoken"
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": ["Login Operation"],
+        "summary": "Login User",
+        "description": "User login",
+        "consumes": ["application/json", "application/xml"],
+        "produces": ["application/xml", "application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Will post email and password to database and database will check if it's true or not.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserLogin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "If user exist, and  the password is matched. It will response token object."
+          }
+        }
+      }
+    },
+    "/posts": {
+      "post": {
+        "tags": ["Post Operation"],
+        "summary": "Create a new post",
+        "consumes": ["application/json", "application/xml"],
+        "produces": ["application/xml", "application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Create a new post.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PostCreate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "If user exist, and  the password is matched. It will response token object."
+          }
+        }
+      },
+      "get": {
+        "tags": ["Post Operation"],
+        "summary": "GetAllPost",
+        "description": "Find all post in database",
+        "consumes": ["application/json", "application/xml"],
+        "produces": ["application/xml", "application/json"],
+        "responses": {
+          "200": {
+            "description": "If user exist, and  the password is matched. It will response token object."
+          }
+        }
+      }
+    },
+    "/posts/{id}": {
+      "put": {
+        "tags": ["Post Operation"],
+        "summary": "Update Post",
+        "description": "Update base on id Post",
+        "consumes": ["application/json", "application/xml"],
+        "produces": ["application/xml", "application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "description": "Will post email and password to database and database will check if it's true or not.",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Create a new post.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PostUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "If user exist, and  the password is matched. It will response token object."
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Post Operation"],
+        "summary": "Delete Post",
+        "description": "Delete a post base on id",
+        "consumes": ["application/json", "application/xml"],
+        "produces": ["application/xml", "application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "If user exist, and  the password is matched. It will response token object."
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Authorization": {
+      "type": "apiKey",
+      "name": "x-auth-token",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "UserRegister": {
+      "type": "object",
+      "required": ["name", "email", "password"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Jagoan"
+        },
+        "email": {
+          "type": "string",
+          "example": "jagoan@mail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "jagoan"
+        }
+      }
+    },
+    "UserLogin": {
+      "type": "object",
+      "required": ["email", "password"],
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "jagoan@mail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "jagoan"
+        }
+      }
+    },
+    "PostCreate": {
+      "type": "object",
+      "required": ["user", "title", "body"],
+      "properties": {
+        "user": {
+          "type": "object",
+          "example": {
+            "user._id": null
+          }
+        },
+        "title": {
+          "type": "string",
+          "example": "this is title"
+        },
+        "body": {
+          "type": "string",
+          "example": "this is body"
+        }
+      }
+    },
+    "PostUpdate": {
+      "type": "object",
+      "required": ["post", "user", "title", "body"],
+      "properties": {
+        "post": {
+          "type": "object",
+          "example": {
+            "post._id": null
+          }
+        },
+        "user": {
+          "type": "object",
+          "example": {
+            "user._id": null
+          }
+        },
+        "title": {
+          "type": "string",
+          "example": "this is title"
+        },
+        "body": {
+          "type": "string",
+          "example": "this is body"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
