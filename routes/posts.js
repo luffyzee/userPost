@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
   const post = await Post.find()
     .populate("user", "name")
     .sort("user");
-  res.send(post);
+  res.status(200).send(post);
 });
 
 router.post("/", auth, async (req, res) => {
@@ -32,7 +32,7 @@ router.post("/", auth, async (req, res) => {
   await post.save();
   user.post.push(post);
   await user.save();
-  res.status(201).send(post);
+  res.status(201).json(post);
 });
 
 router.delete("/", auth, async (req, res) => {
@@ -49,7 +49,7 @@ router.delete("/", auth, async (req, res) => {
   removePost(user.post, post._id);
   user.save();
   post = await Post.findByIdAndDelete(req.body.postId);
-  res.send(user);
+  res.send("Deleted");
 });
 
 router.put("/:id", auth, async (req, res) => {
@@ -69,7 +69,7 @@ router.put("/:id", auth, async (req, res) => {
   let user = await Post.findOne({ user: req.body.userId });
   if (!user) return res.status(400).send("Access denied");
 
-  res.send(post);
+  res.status(200).send(post);
 });
 
 function validateDelete(post) {

@@ -9,8 +9,10 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/me", auth, async (req, res) => {
-  const user = await User.findById(req.user._id).select("-password");
-  res.send(user);
+  const user = await User.findById(req.user._id)
+    .populate("post")
+    .select("-password");
+  res.status(200).json(user);
 });
 
 router.post("/", async (req, res) => {
@@ -29,7 +31,7 @@ router.post("/", async (req, res) => {
   user.password = await bcrypt.hash(user.password, salt);
 
   await user.save();
-  res.status(201).send(user);
+  res.status(201).json(user);
 });
 
 router.put("/:id", async (req, res) => {
@@ -49,7 +51,7 @@ router.put("/:id", async (req, res) => {
   );
   if (!user) return res.status(404).send("User not found");
 
-  res.status(200).send(user);
+  res.status(200).json(user);
 });
 
 router.delete("/:id", async (req, res) => {

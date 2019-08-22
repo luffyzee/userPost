@@ -183,6 +183,11 @@
             }
           }
         ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "If user exist, and  the password is matched. It will response token object."
@@ -201,6 +206,11 @@
             "name": "id",
             "type": "integer",
             "required": true
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
           }
         ],
         "responses": {
